@@ -19,7 +19,7 @@ app.use('*', cors({
 app.route('/api', api)
 
 // Start background sync
-startCronJobs()
+// startCronJobs() // Disabled for Vercel Serverless to prevent hanging
 
 app.get('/', (c) => {
   return c.text('Motorsport Platform API is running')
