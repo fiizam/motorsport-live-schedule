@@ -1,0 +1,61 @@
+---
+export interface Props {
+  title: string;
+  classification: {
+    position: number | string;
+    driverName?: string;
+    riderName?: string;
+    teamName: string;
+    gapToLeader: string | number;
+    status: string;
+    points: number;
+  }[];
+  accentColorClass?: string;
+}
+
+const { title, classification, accentColorClass = "text-f1-red" } = Astro.props;
+---
+
+<section class="py-6 max-w-4xl px-4 animate-fade-up">
+  {title && (
+    <div class="mb-4">
+      <h2 class="text-sm font-bold tracking-widest uppercase text-text-primary">{title}</h2>
+    </div>
+  )}
+  
+  <div class="flex flex-col border-t border-editorial pt-2">
+    {classification.map((row, index) => {
+      const name = row.driverName || row.riderName || "Unknown";
+      const isWinner = row.position === 1 || row.position === "1";
+      
+      return (
+        <div class="flex items-center justify-between py-2 border-b border-editorial group hover:bg-surface-50 transition-colors px-2" style={`animation-delay: ${Math.min(index * 20, 300)}ms;`}>
+          <div class={`flex items-center space-x-4 w-full ${isWinner ? 'py-4' : ''}`}>
+            <span class={`text-sm font-bold tracking-tighter tabular-nums w-6 text-right ${isWinner ? accentColorClass : 'text-text-secondary'}`}>
+              {isWinner ? 'P1' : row.position}
+            </span>
+            
+            <div class="flex flex-col flex-grow">
+              <span class={`font-bold tracking-tighter uppercase transition-colors ${isWinner ? 'text-lg text-text-primary' : 'text-sm text-text-primary group-hover:opacity-70'}`}>
+                {name}
+              </span>
+              <span class={`font-light tracking-wide uppercase ${isWinner ? 'text-xs text-text-secondary' : 'text-[10px] text-text-tertiary'}`}>
+                {row.teamName}
+              </span>
+            </div>
+            
+            <div class="flex items-center space-x-4 text-right">
+              <span class="text-xs font-medium tracking-tighter tabular-nums text-text-secondary w-20">
+                {row.status === 'FINISHED' ? row.gapToLeader : row.status}
+              </span>
+              
+              <span class="text-sm font-bold tracking-tighter tabular-nums text-text-primary w-12">
+                {row.points} <span class="text-[9px] text-text-tertiary font-sans">PTS</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>

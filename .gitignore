@@ -1,0 +1,15 @@
+node_modules
+dist
+.env
+.DS_Store
+.astro
+.svelte-kit
+*.log
+gitlog.txt
+api_result.json
+f1_event_1.json
+jolpica-2026.json
+test-api.js
+test-calendar.json
+test-frontend.js
+backend/test-*.js

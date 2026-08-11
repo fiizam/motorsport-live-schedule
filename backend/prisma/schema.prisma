@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Championship {
+  id      String   @id @default(cuid())
+  name    String   // e.g. "Formula 1", "MotoGP"
+  seasons Season[]
+}
+
+model Season {
+  id             String       @id @default(cuid())
+  year           Int
+  championshipId String
+  championship   Championship @relation(fields: [championshipId], references: [id])
+  events         Event[]
+
+  @@unique([year, championshipId])
+}
+
+model Event {
+  id         String   @id @default(cuid())
+  name       String   // e.g. "British Grand Prix"
+  seasonId   String
+  season     Season   @relation(fields: [seasonId], references: [id])
+  circuitId  String
+  circuit    Circuit  @relation(fields: [circuitId], references: [id])
+  startDate  DateTime
+  endDate    DateTime
+  timezone   String   // e.g. "Europe/London"
+  sessions   Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id])
+  name      String   // e.g. "Free Practice 1", "Qualifying", "Race"
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("UPCOMING") // "UPCOMING", "LIVE", "FINISHED"
+}
+
+model Circuit {
+  id         String  @id @default(cuid())
+  name       String
+  country    String
+  city       String
+  lengthKm   Float?
+  corners    Int?
+  events     Event[]
+}
+
+model Driver {
+  id          String  @id @default(cuid())
+  name        String
+  nationality String
+  number      Int?
+}

@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Outfit', 'Inter', system-ui, sans-serif;
+  
+  --color-pure-white: #ffffff;
+  --color-deep-black: #0a0a0a;
+  
+  /* Brand colors */
+  --color-f1-red: #e10600;
+  --color-motogp-blue: #0050ff;
+  
+  /* Surfaces (Light Mode) */
+  --color-surface-50: #ffffff;
+  --color-surface-100: #fafafa;
+  --color-surface-800: #f5f5f5;
+  --color-surface-900: #fafafa;
+  --color-surface-950: #ffffff;
+  
+  /* Text (Light Mode) */
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #888888;
+}
+
+@layer base {
+  html, body {
+    @apply bg-surface-950 text-text-primary antialiased selection:bg-f1-red selection:text-white;
+    font-family: var(--font-sans);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+  
+  /* Smooth scrolling */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Utility for tabular numbers in countdowns */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Shared transitions */
+  .trans-slow {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .trans-medium {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Editorial Minimalist Utility */
+  .glass-panel {
+    @apply bg-white border border-black/5 shadow-sm;
+  }
+  
+  .border-editorial {
+    @apply border-black/10;
+  }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drawPath {
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

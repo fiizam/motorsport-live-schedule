@@ -1,0 +1,44 @@
+---
+export interface Props {
+  title: string;
+  winner?: {
+    driverName?: string;
+    riderName?: string;
+    teamName?: string;
+    position?: number | string;
+  };
+  accentColorClass?: string;
+  isUpcoming?: boolean;
+}
+
+const { title, winner, accentColorClass = "text-f1-red", isUpcoming = false } = Astro.props;
+const name = winner ? (winner.driverName || winner.riderName || "Unknown") : "To be decided";
+const team = winner ? (winner.teamName || "Unknown") : "";
+---
+
+<section class="py-6 max-w-4xl px-4 animate-fade-up">
+  <div class="flex flex-col">
+    <div class="flex items-center space-x-3 mb-2">
+      <span class="text-sm font-bold tracking-widest uppercase text-text-primary">{title}</span>
+      <span class={`text-xs font-black tracking-widest uppercase ${isUpcoming ? 'text-text-secondary' : accentColorClass}`}>
+        {isUpcoming ? 'UPCOMING' : 'FINAL'}
+      </span>
+    </div>
+    
+    <div class="flex items-start space-x-6 mt-4">
+      <span class={`text-2xl font-black tracking-tighter tabular-nums leading-none ${isUpcoming ? 'text-text-secondary' : 'text-text-primary'}`}>
+        {isUpcoming ? 'Winner will be determined after the race.' : 'P1'}
+      </span>
+      {!isUpcoming && (
+        <div class="flex flex-col justify-start">
+          <span class="text-2xl font-black tracking-tighter uppercase leading-none text-text-primary">
+            {name}
+          </span>
+          <span class="text-sm text-text-secondary tracking-wide uppercase font-heading mt-1">
+            {team}
+          </span>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

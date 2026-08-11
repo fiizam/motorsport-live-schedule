@@ -1,0 +1,53 @@
+---
+export interface Props {
+  title?: string;
+  standings: {
+    position: number;
+    driverName?: string;
+    riderName?: string;
+    teamName: string;
+    points: number;
+  }[];
+  accentColorClass?: string;
+}
+
+const { title, standings, accentColorClass = "text-f1-red" } = Astro.props;
+---
+
+<section class="max-w-4xl px-4 animate-fade-up">
+  {title && (
+    <div class="mb-8">
+      <h2 class="text-xl font-bold tracking-widest uppercase text-text-primary">{title}</h2>
+    </div>
+  )}
+  
+  <div class="flex flex-col">
+    {standings.map((row, index) => {
+      const isLeader = index === 0;
+      const name = row.driverName || row.riderName || "Unknown";
+      
+      return (
+        <div class={`flex items-center justify-between py-4 px-2 border-b border-editorial animate-fade-up group hover:bg-surface-50 transition-colors ${isLeader ? 'pt-8' : ''}`} style={`animation-delay: ${Math.min(index * 20, 300)}ms;`}>
+          <div class="flex items-center space-x-6 w-full">
+            <span class={`text-xl font-black tracking-tighter tabular-nums w-8 ${isLeader ? accentColorClass : 'text-text-tertiary'}`}>
+              {row.position.toString().padStart(2, '0')}
+            </span>
+            
+            <div class="flex flex-col flex-grow">
+              <span class={`text-lg uppercase tracking-wide ${isLeader ? 'font-black text-text-primary' : 'font-bold text-text-primary group-hover:opacity-70'} transition-opacity`}>
+                {name}
+              </span>
+              <span class="text-xs font-light text-text-secondary tracking-widest uppercase mt-0.5">
+                {row.teamName}
+              </span>
+            </div>
+            
+            <span class="text-lg font-bold tracking-tighter tabular-nums text-text-primary w-20 text-right">
+              {row.points} <span class="text-[10px] text-text-tertiary font-sans tracking-widest ml-1">PTS</span>
+            </span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
