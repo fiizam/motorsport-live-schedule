@@ -1,4 +1,5 @@
 ---
+import { API_URL } from '../utils/api';
 import Layout from '../layouts/Layout.astro';
 import ChampionshipSwitcher from '../components/ChampionshipSwitcher.svelte';
 
@@ -9,7 +10,7 @@ let error = null;
 let currentYear = new Date().getFullYear();
 
 try {
-  const res = await fetch('http://localhost:3000/api/f1/calendar');
+  const res = await fetch(`${API_URL}/api/f1/calendar`);
   if (res.ok) {
     calendar = await res.json();
   } else {

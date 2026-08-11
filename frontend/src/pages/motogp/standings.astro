@@ -1,4 +1,5 @@
 ---
+import { API_URL } from '../../utils/api';
 import Layout from '../../layouts/Layout.astro';
 import ChampionshipTable from '../../components/ChampionshipTable.astro';
 
@@ -8,7 +9,7 @@ let standingsData = null;
 let error = null;
 
 try {
-  const res = await fetch('http://localhost:3000/api/motogp/standings');
+  const res = await fetch(`${API_URL}/api/motogp/standings`);
   if (res.ok) {
     standingsData = await res.json();
   } else {

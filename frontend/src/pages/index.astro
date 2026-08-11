@@ -1,4 +1,5 @@
 ---
+import { API_URL } from '../utils/api';
 import Layout from '../layouts/Layout.astro';
 import LiveCountdown from '../components/LiveCountdown.svelte';
 import { formatEventWeekday, formatEventDateShort, formatEventTime } from '../utils/timeUtils';
@@ -14,23 +15,23 @@ let targetDate: string | null = null;
 try {
   // Fetch upcoming
   const [f1Res, mgpRes] = await Promise.all([
-    fetch('http://localhost:3000/api/f1/upcoming').then(r => r.ok ? r.json() : null),
-    fetch('http://localhost:3000/api/motogp/upcoming').then(r => r.ok ? r.json() : null)
+    fetch(`${API_URL}/api/f1/upcoming`).then(r => r.ok ? r.json() : null),
+    fetch(`${API_URL}/api/motogp/upcoming`).then(r => r.ok ? r.json() : null)
   ]);
   f1Upcoming = f1Res;
   motogpUpcoming = mgpRes;
 
   // Fetch calendars to find recent completed races
   const [f1Cal, mgpCal] = await Promise.all([
-    fetch('http://localhost:3000/api/f1/calendar').then(r => r.ok ? r.json() : []),
-    fetch('http://localhost:3000/api/motogp/calendar').then(r => r.ok ? r.json() : [])
+    fetch(`${API_URL}/api/f1/calendar`).then(r => r.ok ? r.json() : []),
+    fetch(`${API_URL}/api/motogp/calendar`).then(r => r.ok ? r.json() : [])
   ]);
   
   if (Array.isArray(f1Cal)) {
       const finishedF1 = f1Cal.filter(e => e.sessions?.find((s: any) => s.type === 'Race')?.status === 'FINISHED');
       if (finishedF1.length > 0) {
           f1Recent = finishedF1[finishedF1.length - 1];
-          const resultsRes = await fetch(`http://localhost:3000/api/f1/event/${f1Recent.id}/results`).then(r => r.ok ? r.json() : null);
+          const resultsRes = await fetch(`${API_URL}/api/f1/event/${f1Recent.id}/results`).then(r => r.ok ? r.json() : null);
           if (resultsRes) {
               f1Recent.raceResult = resultsRes.race;
           }
@@ -41,7 +42,7 @@ try {
       const finishedMgp = mgpCal.filter(e => e.sessions?.find((s: any) => s.type === 'Race')?.status === 'FINISHED');
       if (finishedMgp.length > 0) {
           motogpRecent = finishedMgp[finishedMgp.length - 1];
-          const resultsRes = await fetch(`http://localhost:3000/api/motogp/event/${motogpRecent.id}/results`).then(r => r.ok ? r.json() : null);
+          const resultsRes = await fetch(`${API_URL}/api/motogp/event/${motogpRecent.id}/results`).then(r => r.ok ? r.json() : null);
           if (resultsRes) {
               motogpRecent.raceResult = resultsRes.raceResult;
           }
@@ -50,8 +51,8 @@ try {
 
   // Fetch standings preview (top 3)
   const [f1Std, mgpStd] = await Promise.all([
-      fetch('http://localhost:3000/api/f1/standings').then(r => r.ok ? r.json() : null),
-      fetch('http://localhost:3000/api/motogp/standings').then(r => r.ok ? r.json() : null)
+      fetch(`${API_URL}/api/f1/standings`).then(r => r.ok ? r.json() : null),
+      fetch(`${API_URL}/api/motogp/standings`).then(r => r.ok ? r.json() : null)
   ]);
   f1Standings = f1Std;
   motogpStandings = mgpStd;

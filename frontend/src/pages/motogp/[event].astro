@@ -1,4 +1,5 @@
 ---
+import { API_URL } from '../../utils/api';
 import Layout from '../../layouts/Layout.astro';
 import LiveCountdown from '../../components/LiveCountdown.svelte';
 import LiveIndicator from '../../components/LiveIndicator.svelte';
@@ -20,7 +21,7 @@ let weekendDates = "TBD";
 let championshipStandings = null;
 
 try {
-  const res = await fetch(`http://localhost:3000/api/motogp/event/${slug}`);
+  const res = await fetch(`${API_URL}/api/motogp/event/${slug}`);
   if (res.ok) {
     eventData = await res.json();
     
@@ -40,7 +41,7 @@ try {
     // Note: eventData.raceResult is attached if it exists
     if (eventData.sessions.some((s: any) => s.type === 'Race' && s.status === 'FINISHED')) {
        try {
-         const standingsRes = await fetch('http://localhost:3000/api/motogp/standings');
+         const standingsRes = await fetch(`${API_URL}/api/motogp/standings`);
          if (standingsRes.ok) {
            championshipStandings = await standingsRes.json();
          }

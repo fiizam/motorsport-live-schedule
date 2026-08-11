@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { API_URL } from '../utils/api';
   import { onDestroy } from 'svelte';
   import { fly } from 'svelte/transition';
   import { globalTime } from '../stores/timeStore';
@@ -41,7 +42,7 @@
   // We can keep SSE here if we need backend pushes for targetDate changes
   // but it's optional for the scope of the timer itself.
   try {
-    eventSource = new EventSource('http://localhost:3000/api/live');
+    eventSource = new EventSource(`${API_URL}/api/live`);
     eventSource.onmessage = (event) => {
       // If we need to dynamically parse data, we do it here.
     };
