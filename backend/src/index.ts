@@ -52,9 +52,14 @@ app.get('/api/live', async (c) => {
 })
 
 const port = 3000
-console.log(`Server is running on port ${port}`)
 
-serve({
-  fetch: app.fetch,
-  port
-})
+// Only run the standalone server if we're not on Vercel
+if (!process.env.VERCEL) {
+  console.log(`Server is running on port ${port}`)
+  serve({
+    fetch: app.fetch,
+    port
+  })
+}
+
+export default app
