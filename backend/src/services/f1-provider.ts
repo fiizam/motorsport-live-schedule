@@ -238,7 +238,7 @@ export class F1Provider {
             { id: findId('Practice', 'fp3'), name: 'Practice 3', type: 'Practice', startDate: new Date(baseDate.getTime() + 86400000).toISOString(), endDate: new Date(baseDate.getTime() + 90000000).toISOString(), status: 'UPCOMING' },
             { id: findId('Qualifying', 'q'), name: 'Qualifying', type: 'Qualifying', startDate: new Date(baseDate.getTime() + 100800000).toISOString(), endDate: new Date(baseDate.getTime() + 104400000).toISOString(), status: 'UPCOMING' },
             { id: findId('Race', 'race'), name: 'Race', type: 'Race', startDate: new Date(baseDate.getTime() + 172800000).toISOString(), endDate: new Date(baseDate.getTime() + 180000000).toISOString(), status: 'UPCOMING' }
-          ].map(s => this.updateSessionStatus(s, now, event.status));
+          ].map(s => this.updateSessionStatus(s as F1Session, now, event.status));
         }
       }
 
@@ -270,7 +270,7 @@ export class F1Provider {
               { id: findId('Sprint', 'sprint'), name: 'Sprint', type: 'Sprint', startDate: new Date(saturday.getTime()).toISOString(), endDate: new Date(saturday.getTime() + 3600000).toISOString(), status: 'UPCOMING' },
               { id: findId('Qualifying', 'q'), name: 'Qualifying', type: 'Qualifying', startDate: new Date(saturday.getTime() + 14400000).toISOString(), endDate: new Date(saturday.getTime() + 18000000).toISOString(), status: 'UPCOMING' },
               { id: findId('Race', 'race'), name: 'Race', type: 'Race', startDate: raceDate.toISOString(), endDate: new Date(raceDate.getTime() + 7200000).toISOString(), status: 'UPCOMING' }
-            ].map(s => this.updateSessionStatus(s, now, event.status));
+            ].map(s => this.updateSessionStatus(s as F1Session, now, event.status));
           } else {
              event.sessions = [
               { id: findId('Practice', 'fp1'), name: 'Practice 1', type: 'Practice', startDate: new Date(friday.getTime()).toISOString(), endDate: new Date(friday.getTime() + 3600000).toISOString(), status: 'UPCOMING' },
@@ -278,7 +278,7 @@ export class F1Provider {
               { id: findId('Practice', 'fp3'), name: 'Practice 3', type: 'Practice', startDate: new Date(saturday.getTime()).toISOString(), endDate: new Date(saturday.getTime() + 3600000).toISOString(), status: 'UPCOMING' },
               { id: findId('Qualifying', 'q'), name: 'Qualifying', type: 'Qualifying', startDate: new Date(saturday.getTime() + 14400000).toISOString(), endDate: new Date(saturday.getTime() + 18000000).toISOString(), status: 'UPCOMING' },
               { id: findId('Race', 'race'), name: 'Race', type: 'Race', startDate: raceDate.toISOString(), endDate: new Date(raceDate.getTime() + 7200000).toISOString(), status: 'UPCOMING' }
-            ].map(s => this.updateSessionStatus(s, now, event.status));
+            ].map(s => this.updateSessionStatus(s as F1Session, now, event.status));
           }
         }
       }

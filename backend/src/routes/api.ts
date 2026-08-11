@@ -134,7 +134,7 @@ api.get('/motogp/event/:slug', async (c) => {
     const event = await motoGPProvider.getEventBySlug(slug);
     if (!event) return c.json({ error: 'Event not found' }, 404);
     
-    let eventData = event;
+    let eventData: any = event;
     const results = await motoGPProvider.getEventResults(slug);
     if (results.raceResult || results.sprintResult) {
        eventData = { ...event, raceResult: results.raceResult, sprintResult: results.sprintResult };
