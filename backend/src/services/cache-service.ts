@@ -12,6 +12,7 @@ export class CacheService {
   private async initRedis() {
     console.log('Redis disabled on Vercel to prevent hanging. Using in-memory cache.');
     return;
+    const redisUrl = process.env.REDIS_URL;
 
     try {
       // Lazy load redis only if URL is provided
