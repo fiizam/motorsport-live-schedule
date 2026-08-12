@@ -67,7 +67,7 @@ const raceSession = eventData && eventData.sessions.find((s: any) => s.type === 
 <Layout title={eventData ? eventData.name : "Event Not Found"}>
   {error ? (
     <div class="min-h-[80vh] flex items-center justify-center px-4 animate-fade-up">
-       <div class="glass-panel border-red-500/30 text-red-500 px-8 py-6 rounded max-w-lg text-center">
+       <div class="glass-panel border-red-500/30 text-red-500 px-8 py-6 rounded-3xl max-w-lg text-center">
           <h1 class="text-2xl font-bold mb-2 font-heading tracking-tight uppercase text-text-primary">Error</h1>
           <p class="font-sans text-sm">{error}</p>
           <a href="/motogp" class="mt-8 inline-block border-b border-black/20 pb-1 text-sm font-bold uppercase tracking-widest hover:border-black transition-colors text-text-primary">Return to Calendar</a>

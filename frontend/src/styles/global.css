@@ -26,7 +26,7 @@
 
 @layer base {
   html, body {
-    @apply bg-surface-950 text-text-primary antialiased selection:bg-f1-red selection:text-white;
+    @apply bg-surface-50 text-text-primary antialiased selection:bg-f1-red selection:text-white;
     font-family: var(--font-sans);
   }
   
@@ -57,7 +57,7 @@
   
   /* Editorial Minimalist Utility */
   .glass-panel {
-    @apply bg-white border border-black/5 shadow-sm;
+    @apply bg-white border border-black/5 shadow-md rounded-2xl;
   }
   
   .border-editorial {

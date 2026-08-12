@@ -102,7 +102,7 @@ upcomingEvents.sort((a, b) => {
            const timeStr = nextSession ? formatEventTime(nextSession.startDate) : '--:--';
 
            return (
-             <a href={`${event.basePath}/${event.id || event.round}`} class="group block glass-panel p-6 md:p-8 hover:border-black/20 hover:shadow-md transition-all duration-300">
+             <a href={`${event.basePath}/${event.id || event.round}`} class="group block glass-panel rounded-3xl p-6 md:p-8 hover:border-black/20 hover:shadow-lg transition-all duration-300">
                 <div class="flex justify-between items-start mb-12">
                    <span class={`text-xs uppercase tracking-widest font-bold text-${event.color}`}>{event.series}</span>
                    {isLive ? (
@@ -171,7 +171,7 @@ upcomingEvents.sort((a, b) => {
                <span class="text-xl font-bold tracking-tighter uppercase mb-1 group-hover:opacity-70 transition-opacity text-text-primary">{item.data.name}</span>
                
                {winner ? (
-                 <div class="mt-4 glass-panel p-4 flex justify-between items-center group-hover:border-black/10 transition-colors">
+                 <div class="mt-4 glass-panel rounded-2xl p-4 flex justify-between items-center group-hover:border-black/10 hover:shadow-md transition-all">
                     <div class="flex flex-col">
                        <span class="text-[10px] text-text-tertiary tracking-widest uppercase mb-1">Winner</span>
                        <span class="text-sm font-bold tracking-wider uppercase text-text-primary">{winner.driverName || winner.riderName}</span>
@@ -212,7 +212,7 @@ upcomingEvents.sort((a, b) => {
 
                 <div class="flex flex-col space-y-2">
                    {list.map((driver: any) => (
-                      <div class="flex items-center justify-between p-3 glass-panel hover:bg-surface-800 transition-colors">
+                      <div class="flex items-center justify-between p-3 glass-panel rounded-2xl mb-2 hover:bg-surface-100 hover:shadow-md transition-all">
                          <div class="flex items-center space-x-4">
                             <span class="text-xs font-bold text-text-tertiary w-4">{driver.position}</span>
                             <div class="flex flex-col">

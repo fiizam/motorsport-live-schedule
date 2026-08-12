@@ -49,14 +49,16 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     
     <ClientRouter />
   </head>
-  <body class="min-h-screen flex flex-col bg-surface-950 text-text-primary selection:bg-black selection:text-white">
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-editorial">
+  <body class="min-h-screen flex flex-col bg-surface-50 text-text-primary selection:bg-black selection:text-white pb-24 md:pb-0">
+    <!-- Top Navbar -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-editorial">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         <div class="flex items-center space-x-8">
           <a href="/" class="text-xl font-bold tracking-tighter uppercase font-heading hover:opacity-70 transition-opacity">Motorsport</a>
           
-          <div class="hidden sm:flex items-center space-x-1">
+          <!-- Desktop Series Links -->
+          <div class="hidden md:flex items-center space-x-1">
             <a href="/f1" class={`px-3 py-1.5 text-xs uppercase tracking-widest font-bold rounded-sm transition-colors ${isF1 ? 'bg-text-primary text-white' : 'text-text-secondary hover:text-text-primary'}`}>
               F1
             </a>
@@ -66,12 +68,13 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
           </div>
         </div>
         
+        <!-- Contextual Links (Calendar/Standings) -->
         {(isF1 || isMotoGP) && (
-          <div class="flex items-center space-x-6 h-full">
-            <a href={basePath} class={`text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isCalendar ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
+          <div class="flex items-center space-x-4 sm:space-x-6 h-full">
+            <a href={basePath} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isCalendar ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
               Calendar
             </a>
-            <a href={`${basePath}/standings`} class={`text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isStandings ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
+            <a href={`${basePath}/standings`} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isStandings ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
               Standings
             </a>
           </div>
@@ -79,11 +82,33 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
       </div>
     </nav>
 
-    <main class="flex-grow bg-surface-950">
+    <!-- Mobile Floating Bottom Navbar -->
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm bg-white/90 backdrop-blur-xl border border-black/10 shadow-2xl rounded-full px-6 py-4 flex items-center justify-around md:hidden">
+      <a href="/" class="flex flex-col items-center group">
+        <svg class={`w-5 h-5 mb-1 ${pathname === '/' ? 'text-black' : 'text-text-tertiary group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span class={`text-[10px] uppercase tracking-widest font-bold ${pathname === '/' ? 'text-black' : 'text-text-tertiary group-hover:text-black'}`}>Home</span>
+      </a>
+      <a href="/f1" class="flex flex-col items-center group">
+        <svg class={`w-5 h-5 mb-1 ${isF1 ? 'text-f1-red' : 'text-text-tertiary group-hover:text-f1-red'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span class={`text-[10px] uppercase tracking-widest font-bold ${isF1 ? 'text-f1-red' : 'text-text-tertiary group-hover:text-f1-red'}`}>F1</span>
+      </a>
+      <a href="/motogp" class="flex flex-col items-center group">
+        <svg class={`w-5 h-5 mb-1 ${isMotoGP ? 'text-motogp-blue' : 'text-text-tertiary group-hover:text-motogp-blue'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
+        <span class={`text-[10px] uppercase tracking-widest font-bold ${isMotoGP ? 'text-motogp-blue' : 'text-text-tertiary group-hover:text-motogp-blue'}`}>MotoGP</span>
+      </a>
+    </nav>
+
+    <main class="flex-grow bg-surface-50">
       <slot />
     </main>
 
-    <footer class="bg-surface-950 border-t border-editorial py-16 mt-20">
+    <footer class="bg-surface-50 border-t border-editorial py-16 mt-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
         <span class="text-2xl font-bold tracking-tighter uppercase font-heading block mb-2">Motorsport</span>
         <p class="text-xs text-text-secondary tracking-widest uppercase">Precision Real-Time Data</p>
