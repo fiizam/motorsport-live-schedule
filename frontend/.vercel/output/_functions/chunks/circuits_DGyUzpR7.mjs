@@ -1,6 +1,6 @@
 import { n as __exportAll, t as createComponent } from "./compiler_qaW5CanQ.mjs";
 import { d as renderTemplate, h as maybeRenderHead, i as renderComponent } from "./server_ByxJykQl.mjs";
-import { t as $$Layout } from "./Layout_CX4g7U75.mjs";
+import { t as $$Layout } from "./Layout_D4VM2oZh.mjs";
 //#region src/pages/circuits.astro
 var circuits_exports = /* @__PURE__ */ __exportAll({
 	default: () => $$Circuits,

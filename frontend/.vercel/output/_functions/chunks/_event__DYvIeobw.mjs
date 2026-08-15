@@ -1,6 +1,6 @@
 import { n as __exportAll, t as createComponent } from "./compiler_qaW5CanQ.mjs";
 import { T as createAstro, _ as addAttribute, a as Fragment, d as renderTemplate, h as maybeRenderHead, i as renderComponent } from "./server_ByxJykQl.mjs";
-import { t as $$Layout } from "./Layout_CX4g7U75.mjs";
+import { t as $$Layout } from "./Layout_D4VM2oZh.mjs";
 import { t as API_URL } from "./api_DbqcXWAY.mjs";
 import { t as LiveCountdown } from "./LiveCountdown_BuYyP3wj.mjs";
 import { i as LiveIndicator, n as $$ClassificationTable, r as $$RaceWinner, t as ClassificationTabs } from "./ClassificationTabs_5AbvXSAZ.mjs";

@@ -1,6 +1,6 @@
 import { n as __exportAll, t as createComponent } from "./compiler_qaW5CanQ.mjs";
 import { _ as addAttribute, d as renderTemplate, h as maybeRenderHead, i as renderComponent } from "./server_ByxJykQl.mjs";
-import { t as $$Layout } from "./Layout_CX4g7U75.mjs";
+import { t as $$Layout } from "./Layout_D4VM2oZh.mjs";
 import { t as API_URL } from "./api_DbqcXWAY.mjs";
 import { t as LiveCountdown } from "./LiveCountdown_BuYyP3wj.mjs";
 import { i as formatEventTime, t as formatEventDateShort } from "./timeUtils_Dpgyzh4E.mjs";

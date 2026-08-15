@@ -1,6 +1,6 @@
 import { n as __exportAll, t as createComponent } from "./compiler_qaW5CanQ.mjs";
 import { d as renderTemplate, h as maybeRenderHead, i as renderComponent } from "./server_ByxJykQl.mjs";
-import { t as $$Layout } from "./Layout_CX4g7U75.mjs";
+import { t as $$Layout } from "./Layout_D4VM2oZh.mjs";
 import { t as API_URL } from "./api_DbqcXWAY.mjs";
 import { t as $$ChampionshipTable } from "./ChampionshipTable_DhSphpSq.mjs";
 //#region src/pages/f1/standings.astro

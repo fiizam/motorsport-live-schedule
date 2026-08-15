@@ -44,6 +44,15 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/pwa-192x192.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.error('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
     
     <!-- Google Fonts: Outfit (Headings) & Inter (Data/Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
