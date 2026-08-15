@@ -1,4 +1,5 @@
 ---
+import { pwaInfo } from 'virtual:pwa-info';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -25,6 +26,7 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | Motorsport</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
     
     <!-- SEO and Social tags -->
     <meta property="og:title" content={title} />
@@ -41,6 +43,8 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     </script>
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
     
     <!-- Google Fonts: Outfit (Headings) & Inter (Data/Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
