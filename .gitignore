@@ -13,3 +13,5 @@ test-api.js
 test-calendar.json
 test-frontend.js
 backend/test-*.js
+.vercel
+.vercel/
