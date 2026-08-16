@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.vercel.motorsport_live_schedule.twa",
+    "sha256_cert_fingerprints": ["06:BB:B5:68:34:26:65:C5:11:6F:24:76:B2:11:C2:92:58:8E:1A:08:11:C0:BB:EC:04:F6:CE:0B:8B:F5:A6:69"]
+  }
+}]
