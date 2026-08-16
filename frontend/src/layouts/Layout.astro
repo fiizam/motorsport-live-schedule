@@ -163,11 +163,19 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
             // Wait for the user to respond to the prompt
             const { outcome } = await deferredPrompt.userChoice;
             console.log(`User response to the install prompt: ${outcome}`);
+            
             // We've used the prompt, and can't use it again, throw it away
             deferredPrompt = null;
-            // Hide the button
+            
+            // Hide the button since it can't be used again without a page reload
             installBtn.classList.add('hidden');
             installBtn.classList.remove('flex');
+
+            if (outcome === 'accepted') {
+              alert("Proses instalasi sedang berjalan di latar belakang! Jika ikon belum muncul di layar utama (Home Screen), silakan periksa daftar seluruh aplikasi (App Drawer) di HP Anda beberapa saat lagi.");
+            } else {
+              alert("Instalasi dibatalkan. Jika Anda berubah pikiran, silakan muat ulang (refresh) halaman ini untuk memunculkan tombol kembali.");
+            }
           }
         });
       }
