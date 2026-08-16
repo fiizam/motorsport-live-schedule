@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "app.vercel.motorsport_live_schedule.twa",
-    "sha256_cert_fingerprints": ["06:BB:B5:68:34:26:65:C5:11:6F:24:76:B2:11:C2:92:58:8E:1A:08:11:C0:BB:EC:04:F6:CE:0B:8B:F5:A6:69"]
+    "sha256_cert_fingerprints": ["D6:88:70:D8:57:5C:75:4C:78:B4:41:66:74:0D:8A:AE:F5:90:3B:47:BB:E4:56:78:78:97:B4:01:85:35:B7:85"]
   }
 }]
