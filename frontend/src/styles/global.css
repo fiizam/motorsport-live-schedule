@@ -88,3 +88,10 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Hide elements in standalone (PWA/Installed) mode */
+@media all and (display-mode: standalone) {
+  .hide-in-app {
+    display: none !important;
+  }
+}
