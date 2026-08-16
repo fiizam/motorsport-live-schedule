@@ -1,0 +1,91 @@
+---
+---
+
+<div id="splash-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-surface-50 transition-all duration-700 ease-in-out">
+  <div class="splash-logo-container transform transition-transform duration-1000">
+    <img src="/logo splash.png" alt="Motorsport Logo" class="w-64 md:w-80 h-auto object-contain drop-shadow-2xl" />
+  </div>
+  
+  <!-- Sleek modern loading line -->
+  <div class="mt-12 w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
+    <div class="h-full bg-f1-red splash-loading-bar rounded-full"></div>
+  </div>
+</div>
+
+<style>
+  /* Container animation */
+  .splash-logo-container {
+    animation: float 3s ease-in-out infinite, pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  /* Loading bar animation */
+  .splash-loading-bar {
+    width: 0%;
+    animation: load-bar 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes pulse-glow {
+    0% { filter: drop-shadow(0 4px 6px rgba(225, 6, 0, 0.1)); }
+    100% { filter: drop-shadow(0 15px 20px rgba(225, 6, 0, 0.3)); }
+  }
+
+  @keyframes load-bar {
+    0% { width: 0%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { width: 100%; opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+  }
+
+  /* Hide classes applied via JS */
+  .splash-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px) scale(1.05);
+  }
+  
+  .splash-removed {
+    display: none !important;
+  }
+</style>
+
+<script>
+  // Ensure we only run this on the client
+  if (typeof window !== 'undefined') {
+    const splashScreen = document.getElementById('splash-screen');
+    
+    // Check if splash has already been shown in this session
+    const hasShownSplash = sessionStorage.getItem('splashShown');
+    
+    if (hasShownSplash === 'true') {
+      // Instantly hide if already seen
+      if (splashScreen) splashScreen.classList.add('splash-removed');
+    } else {
+      // Lock scrolling while splash is active
+      document.body.style.overflow = 'hidden';
+      
+      // Wait for the animation (2 seconds), then fade out
+      setTimeout(() => {
+        if (splashScreen) {
+          splashScreen.classList.add('splash-hidden');
+          
+          // Restore scrolling
+          document.body.style.overflow = '';
+          
+          // Set session storage so it doesn't show again
+          sessionStorage.setItem('splashShown', 'true');
+          
+          // Remove from DOM completely after fade out transition (700ms)
+          setTimeout(() => {
+            splashScreen.classList.add('splash-removed');
+          }, 700);
+        }
+      }, 2200);
+    }
+  }
+</script>
