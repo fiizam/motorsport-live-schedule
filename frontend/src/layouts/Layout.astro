@@ -66,6 +66,9 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     <SplashScreen />
     <!-- Top Navbar -->
     <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-editorial">
+      <!-- Navigation Progress Bar -->
+      <div id="nav-loader" class="absolute bottom-0 left-0 h-[2px] bg-f1-red w-0 opacity-0 transition-all duration-300 z-50 pointer-events-none"></div>
+      
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         <div class="flex items-center space-x-8">
@@ -142,5 +145,37 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
       </div>
     </footer>
 
+    <script>
+      // Page Navigation Loading Bar Logic
+      document.addEventListener('astro:before-preparation', () => {
+        const loader = document.getElementById('nav-loader');
+        if (loader) {
+          loader.style.transition = 'width 0.4s ease-out, opacity 0.2s';
+          loader.style.opacity = '1';
+          loader.style.width = '40%';
+          
+          // simulate progressing slowly while waiting
+          window._navLoaderTimeout = setTimeout(() => {
+            if (loader.style.opacity === '1') loader.style.width = '75%';
+          }, 400);
+        }
+      });
+      
+      document.addEventListener('astro:page-load', () => {
+        const loader = document.getElementById('nav-loader');
+        if (loader) {
+          clearTimeout(window._navLoaderTimeout);
+          loader.style.width = '100%';
+          
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+              loader.style.transition = 'none'; // remove transition to reset instantly
+              loader.style.width = '0';
+            }, 300);
+          }, 400);
+        }
+      });
+    </script>
   </body>
 </html>
