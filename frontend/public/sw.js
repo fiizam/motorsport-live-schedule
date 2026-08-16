@@ -1,4 +1,4 @@
-const CACHE_NAME = 'motorsport-pwa-cache-v3';
+const CACHE_NAME = 'motorsport-pwa-cache-v4';
 const urlsToCache = [
   '/',
   '/manifest.webmanifest',
@@ -34,6 +34,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   // Only handle GET requests
   if (event.request.method !== 'GET') return;
+
+  // Bypass service worker for APK downloads so native Android download manager can handle it
+  if (event.request.url.endsWith('.apk')) {
+    return; // Don't call event.respondWith, let the browser handle it natively
+  }
 
   event.respondWith(
     // Network First Strategy
