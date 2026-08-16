@@ -1,11 +1,11 @@
-const CACHE_NAME = 'motorsport-pwa-cache-v2';
+const CACHE_NAME = 'motorsport-pwa-cache-v3';
 const urlsToCache = [
   '/',
   '/manifest.webmanifest',
   '/pwa-192x192.png',
   '/pwa-512x512.png',
   '/maskable-icon-512x512.png',
-  '/favicon.svg'
+  '/favicon.png'
 ];
 
 self.addEventListener('install', (event) => {
