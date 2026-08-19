@@ -83,7 +83,7 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     <PullToRefresh client:load />
     <SplashScreen />
     <!-- Top Navbar -->
-    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-editorial">
+    <nav class="sticky top-0 z-40 bg-surface-50/90 backdrop-blur-md border-b border-editorial">
       <!-- Navigation Progress Bar -->
       <div id="nav-loader" class="absolute bottom-0 left-0 h-[2px] bg-f1-red w-0 opacity-0 transition-all duration-300 z-50 pointer-events-none"></div>
       
@@ -92,12 +92,11 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
         <div class="flex items-center space-x-8">
           <a href="/" class="text-xl font-bold tracking-tighter uppercase font-heading hover:opacity-70 transition-opacity">Motorsport</a>
           
-          <!-- Desktop Series Links -->
           <div class="hidden md:flex items-center space-x-1">
-            <a href="/f1" class={`px-3 py-1.5 text-xs uppercase tracking-widest font-bold rounded-sm transition-colors ${isF1 ? 'bg-text-primary text-white' : 'text-text-secondary hover:text-text-primary'}`}>
+            <a href="/f1" class={`px-3 py-1.5 text-xs uppercase tracking-widest font-bold rounded-sm transition-colors ${isF1 ? 'bg-text-primary text-surface-50' : 'text-text-secondary hover:text-text-primary'}`}>
               F1
             </a>
-            <a href="/motogp" class={`px-3 py-1.5 text-xs uppercase tracking-widest font-bold rounded-sm transition-colors ${isMotoGP ? 'bg-text-primary text-white' : 'text-text-secondary hover:text-text-primary'}`}>
+            <a href="/motogp" class={`px-3 py-1.5 text-xs uppercase tracking-widest font-bold rounded-sm transition-colors ${isMotoGP ? 'bg-text-primary text-surface-50' : 'text-text-secondary hover:text-text-primary'}`}>
               MotoGP
             </a>
           </div>
@@ -123,12 +122,12 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     </nav>
 
     <!-- Mobile Floating Bottom Navbar -->
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm bg-white/90 backdrop-blur-xl border border-black/10 shadow-2xl rounded-full px-6 py-4 flex items-center justify-around md:hidden">
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm bg-surface-50/90 backdrop-blur-xl border border-editorial shadow-2xl rounded-full px-6 py-4 flex items-center justify-around md:hidden">
       <a href="/" class="flex flex-col items-center group">
-        <svg class={`w-5 h-5 mb-1 ${pathname === '/' ? 'text-black' : 'text-text-tertiary group-hover:text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class={`w-5 h-5 mb-1 ${pathname === '/' ? 'text-text-primary' : 'text-text-tertiary group-hover:text-text-primary'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
-        <span class={`text-[10px] uppercase tracking-widest font-bold ${pathname === '/' ? 'text-black' : 'text-text-tertiary group-hover:text-black'}`}>Home</span>
+        <span class={`text-[10px] uppercase tracking-widest font-bold ${pathname === '/' ? 'text-text-primary' : 'text-text-tertiary group-hover:text-text-primary'}`}>Home</span>
       </a>
       <a href="/f1" class="flex flex-col items-center group">
         <svg class={`w-5 h-5 mb-1 ${isF1 ? 'text-f1-red' : 'text-text-tertiary group-hover:text-f1-red'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -153,8 +152,7 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
         <span class="text-2xl font-bold tracking-tighter uppercase font-heading block mb-2">Motorsport</span>
         <p class="text-xs text-text-secondary tracking-widest uppercase mb-8">Precision Real-Time Data</p>
         
-        <!-- APK Download Button -->
-        <a href="/Motorsport.apk" download class="hide-in-app group flex items-center justify-center space-x-3 bg-black hover:bg-gray-900 text-white px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+        <a href="/Motorsport.apk" download class="hide-in-app group flex items-center justify-center space-x-3 bg-text-primary text-surface-50 hover:opacity-80 px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
             <!-- Android Logo SVG -->
             <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592c.1158-.201.0466-.4576-.1544-.5735-.2008-.1158-.4576-.0466-.5735.1544l-2.0409 3.535C15.5413 8.2144 13.8407 7.7126 12 7.7126s-3.5413.5018-5.1102 1.265L4.8489 5.4426c-.1158-.201-.3727-.2702-.5735-.1544-.201.1158-.2702.3725-.1544.5735l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.102-2.6889-7.5743-6.1185-9.44z"/>
