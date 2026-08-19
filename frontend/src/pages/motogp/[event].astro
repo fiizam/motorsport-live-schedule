@@ -7,6 +7,7 @@ import RaceWinner from '../../components/RaceWinner.astro';
 import ClassificationTable from '../../components/ClassificationTable.astro';
 import ClassificationTabs from '../../components/ClassificationTabs.svelte';
 import ChampionshipTable from '../../components/ChampionshipTable.astro';
+import AddToCalendar from '../../components/AddToCalendar.svelte';
 
 import { formatEventDateShort, formatEventWeekday, formatEventTime, formatRaceWeekendRange } from '../../utils/timeUtils';
 
@@ -101,9 +102,10 @@ const raceSession = eventData && eventData.sessions.find((s: any) => s.type === 
             </span>
           </div>
 
-          <div class="w-full flex justify-start">
+          <div class="w-full flex justify-start items-center gap-4 flex-wrap">
             <!-- Real-Time SSE Countdown Island -->
             {targetDate && <LiveCountdown client:load targetDate={targetDate} colorClass="text-motogp-blue" compact={true} />}
+            <AddToCalendar client:load event={eventData} type="MotoGP" />
           </div>
         </div>
       </section>

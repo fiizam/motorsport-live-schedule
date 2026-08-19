@@ -11,20 +11,45 @@
   --color-f1-red: #e10600;
   --color-motogp-blue: #0050ff;
   
-  /* Surfaces (Light Mode) */
-  --color-surface-50: #ffffff;
-  --color-surface-100: #fafafa;
-  --color-surface-800: #f5f5f5;
-  --color-surface-900: #fafafa;
-  --color-surface-950: #ffffff;
+  /* Surfaces */
+  --color-surface-50: var(--bg-surface-50);
+  --color-surface-100: var(--bg-surface-100);
+  --color-surface-800: var(--bg-surface-800);
+  --color-surface-900: var(--bg-surface-900);
+  --color-surface-950: var(--bg-surface-950);
   
-  /* Text (Light Mode) */
-  --color-text-primary: #111111;
-  --color-text-secondary: #555555;
-  --color-text-tertiary: #888888;
+  /* Text */
+  --color-text-primary: var(--txt-primary);
+  --color-text-secondary: var(--txt-secondary);
+  --color-text-tertiary: var(--txt-tertiary);
 }
 
 @layer base {
+  :root {
+    --bg-surface-50: #ffffff;
+    --bg-surface-100: #fafafa;
+    --bg-surface-800: #f5f5f5;
+    --bg-surface-900: #fafafa;
+    --bg-surface-950: #ffffff;
+    
+    --txt-primary: #111111;
+    --txt-secondary: #555555;
+    --txt-tertiary: #888888;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-surface-50: #0a0a0a;
+      --bg-surface-100: #111111;
+      --bg-surface-800: #222222;
+      --bg-surface-900: #1a1a1a;
+      --bg-surface-950: #000000;
+      
+      --txt-primary: #ffffff;
+      --txt-secondary: #aaaaaa;
+      --txt-tertiary: #666666;
+    }
+  }
   html, body {
     @apply bg-surface-50 text-text-primary antialiased selection:bg-f1-red selection:text-white;
     font-family: var(--font-sans);
@@ -61,11 +86,20 @@
   
   /* Editorial Minimalist Utility */
   .glass-panel {
-    @apply bg-white border border-black/5 shadow-md rounded-2xl;
+    @apply bg-surface-50 border border-editorial shadow-md rounded-2xl;
   }
   
   .border-editorial {
-    @apply border-black/10;
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .glass-panel {
+      @apply bg-surface-100;
+    }
+    .border-editorial {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
   }
 }
 

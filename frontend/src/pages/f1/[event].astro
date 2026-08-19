@@ -7,6 +7,7 @@ import RaceWinner from '../../components/RaceWinner.astro';
 import ClassificationTable from '../../components/ClassificationTable.astro';
 import ClassificationTabs from '../../components/ClassificationTabs.svelte';
 import ChampionshipTable from '../../components/ChampionshipTable.astro';
+import AddToCalendar from '../../components/AddToCalendar.svelte';
 
 import { formatEventDateShort, formatEventWeekday, formatEventTime, formatRaceWeekendRange } from '../../utils/timeUtils';
 
@@ -117,9 +118,10 @@ try {
             </div>
           )}
 
-          <div class="w-full flex justify-start">
+          <div class="w-full flex justify-start items-center gap-4 flex-wrap">
             <!-- Real-Time SSE Countdown Island -->
             {targetDate && eventData.status !== 'CANCELLED' && eventData.status !== 'UNDER_REVIEW' && eventData.status !== 'TBC' && <LiveCountdown client:load targetDate={targetDate} colorClass="text-f1-red" compact={true} />}
+            <AddToCalendar client:load event={eventData} type="F1" />
           </div>
         </div>
       </section>

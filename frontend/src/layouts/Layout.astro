@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import SplashScreen from '../components/SplashScreen.astro';
+import PullToRefresh from '../components/PullToRefresh.svelte';
 import '../styles/global.css';
 
 interface Props {
@@ -63,6 +64,7 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
     <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col bg-surface-50 text-text-primary selection:bg-black selection:text-white pb-24 md:pb-0">
+    <PullToRefresh client:load />
     <SplashScreen />
     <!-- Top Navbar -->
     <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-editorial">
