@@ -1,4 +1,4 @@
-const CACHE_NAME = 'motorsport-pwa-cache-v5';
+const CACHE_NAME = 'motorsport-pwa-cache-v6';
 const urlsToCache = [
   '/',
   '/manifest.webmanifest',
