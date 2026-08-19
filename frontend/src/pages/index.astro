@@ -3,6 +3,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=60, sta
 import { API_URL } from '../utils/api';
 import Layout from '../layouts/Layout.astro';
 import LiveCountdown from '../components/LiveCountdown.svelte';
+import AddToCalendar from '../components/AddToCalendar.svelte';
 import { formatEventWeekday, formatEventDateShort, formatEventTime } from '../utils/timeUtils';
 
 let f1Upcoming = null;
@@ -122,9 +123,12 @@ upcomingEvents.sort((a, b) => {
                       <span class="text-xl font-bold tracking-tighter uppercase text-text-primary">{dateStr} — {timeStr} WIB</span>
                    </div>
                    {nextSession?.startDate && !isLive && event.status !== 'UNDER_REVIEW' && event.status !== 'TBC' && (
-                     <div class="text-right">
-                       <span class="text-[10px] text-text-tertiary tracking-widest uppercase block mb-1">Starts In</span>
-                       <LiveCountdown client:load targetDate={nextSession.startDate} colorClass={`text-${event.color}`} compact={true} />
+                     <div class="flex flex-col items-end gap-3">
+                       <div class="text-right">
+                         <span class="text-[10px] text-text-tertiary tracking-widest uppercase block mb-1">Starts In</span>
+                         <LiveCountdown client:load targetDate={nextSession.startDate} colorClass={`text-${event.color}`} compact={true} />
+                       </div>
+                       <AddToCalendar client:load event={event} type={event.series} />
                      </div>
                    )}
                    {(event.status === 'UNDER_REVIEW' || event.status === 'TBC') && (

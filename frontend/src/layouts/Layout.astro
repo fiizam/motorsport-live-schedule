@@ -2,6 +2,7 @@
 import { ClientRouter } from 'astro:transitions';
 import SplashScreen from '../components/SplashScreen.astro';
 import PullToRefresh from '../components/PullToRefresh.svelte';
+import DarkModeToggle from '../components/DarkModeToggle.svelte';
 import '../styles/global.css';
 
 interface Props {
@@ -55,6 +56,21 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
         });
       }
     </script>
+
+    <!-- Prevent FOUC for Dark Mode -->
+    <script is:inline>
+      (function() {
+        try {
+          var savedTheme = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     
     <!-- Google Fonts: Outfit (Headings) & Inter (Data/Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,17 +103,22 @@ const basePath = isF1 ? '/f1' : (isMotoGP ? '/motogp' : '');
           </div>
         </div>
         
-        <!-- Contextual Links (Calendar/Standings) -->
-        {(isF1 || isMotoGP) && (
-          <div class="flex items-center space-x-4 sm:space-x-6 h-full">
-            <a href={basePath} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isCalendar ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
-              Calendar
-            </a>
-            <a href={`${basePath}/standings`} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isStandings ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
-              Standings
-            </a>
+        <!-- Contextual Links & Dark Mode -->
+        <div class="flex items-center space-x-4 sm:space-x-6 h-full">
+          {(isF1 || isMotoGP) && (
+            <>
+              <a href={basePath} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isCalendar ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
+                Calendar
+              </a>
+              <a href={`${basePath}/standings`} class={`text-[10px] sm:text-xs uppercase tracking-widest font-bold transition-colors h-full flex items-center border-b-2 ${isStandings ? accentColor : 'text-text-secondary border-transparent hover:text-text-primary'}`}>
+                Standings
+              </a>
+            </>
+          )}
+          <div class="pl-2">
+            <DarkModeToggle client:load />
           </div>
-        )}
+        </div>
       </div>
     </nav>
 

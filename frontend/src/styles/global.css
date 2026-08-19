@@ -37,18 +37,16 @@
     --txt-tertiary: #888888;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-surface-50: #0a0a0a;
-      --bg-surface-100: #111111;
-      --bg-surface-800: #222222;
-      --bg-surface-900: #1a1a1a;
-      --bg-surface-950: #000000;
-      
-      --txt-primary: #ffffff;
-      --txt-secondary: #aaaaaa;
-      --txt-tertiary: #666666;
-    }
+  .dark {
+    --bg-surface-50: #0a0a0a;
+    --bg-surface-100: #111111;
+    --bg-surface-800: #222222;
+    --bg-surface-900: #1a1a1a;
+    --bg-surface-950: #000000;
+    
+    --txt-primary: #ffffff;
+    --txt-secondary: #aaaaaa;
+    --txt-tertiary: #666666;
   }
   html, body {
     @apply bg-surface-50 text-text-primary antialiased selection:bg-f1-red selection:text-white;
@@ -93,13 +91,11 @@
     border-color: rgba(0, 0, 0, 0.1);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .glass-panel {
-      @apply bg-surface-100;
-    }
-    .border-editorial {
-      border-color: rgba(255, 255, 255, 0.1);
-    }
+  .dark .glass-panel {
+    @apply bg-surface-100;
+  }
+  .dark .border-editorial {
+    border-color: rgba(255, 255, 255, 0.1);
   }
 }
 
