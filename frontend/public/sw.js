@@ -1,11 +1,12 @@
-const CACHE_NAME = 'motorsport-pwa-cache-v4';
+const CACHE_NAME = 'motorsport-pwa-cache-v5';
 const urlsToCache = [
   '/',
   '/manifest.webmanifest',
   '/pwa-192x192.png',
   '/pwa-512x512.png',
   '/maskable-icon-512x512.png',
-  '/favicon.png'
+  '/favicon.png',
+  '/offline.html'
 ];
 
 self.addEventListener('install', (event) => {
@@ -55,7 +56,17 @@ self.addEventListener('fetch', (event) => {
       })
       .catch(() => {
         // If network fails (offline), fallback to cache
-        return caches.match(event.request);
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // If the request is for a navigation (HTML page) and not in cache, show offline.html
+          if (event.request.mode === 'navigate') {
+            return caches.match('/offline.html');
+          }
+          // Otherwise let it fail
+          return new Response('', { status: 408, statusText: 'Offline' });
+        });
       })
   );
 });
