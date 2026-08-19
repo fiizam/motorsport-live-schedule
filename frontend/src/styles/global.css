@@ -84,7 +84,8 @@
   
   /* Editorial Minimalist Utility */
   .glass-panel {
-    @apply bg-surface-50 border border-editorial shadow-md rounded-2xl;
+    @apply bg-surface-50 border shadow-md rounded-2xl;
+    border-color: rgba(0, 0, 0, 0.1);
   }
   
   .border-editorial {
@@ -93,6 +94,7 @@
 
   .dark .glass-panel {
     @apply bg-surface-100;
+    border-color: rgba(255, 255, 255, 0.1);
   }
   .dark .border-editorial {
     border-color: rgba(255, 255, 255, 0.1);
