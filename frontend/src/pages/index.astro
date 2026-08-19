@@ -104,7 +104,7 @@ upcomingEvents.sort((a, b) => {
            const timeStr = nextSession ? formatEventTime(nextSession.startDate) : '--:--';
 
            return (
-             <a href={`${event.basePath}/${event.id || event.round}`} class="group block glass-panel rounded-3xl p-6 md:p-8 hover:border-black/20 hover:shadow-lg transition-all duration-300">
+             <div onclick={`window.location.href='${event.basePath}/${event.id || event.round}'`} class="cursor-pointer group block glass-panel rounded-3xl p-6 md:p-8 hover:border-black/20 hover:shadow-lg transition-all duration-300 relative">
                 <div class="flex justify-between items-start mb-12">
                    <span class={`text-xs uppercase tracking-widest font-bold text-${event.color}`}>{event.series}</span>
                    {isLive ? (
@@ -123,7 +123,7 @@ upcomingEvents.sort((a, b) => {
                       <span class="text-xl font-bold tracking-tighter uppercase text-text-primary">{dateStr} — {timeStr} WIB</span>
                    </div>
                    {nextSession?.startDate && !isLive && event.status !== 'UNDER_REVIEW' && event.status !== 'TBC' && (
-                     <div class="flex flex-col items-end gap-3">
+                     <div class="flex flex-col items-end gap-3" onclick="event.stopPropagation()">
                        <div class="text-right">
                          <span class="text-[10px] text-text-tertiary tracking-widest uppercase block mb-1">Starts In</span>
                          <LiveCountdown client:load targetDate={nextSession.startDate} colorClass={`text-${event.color}`} compact={true} />
@@ -137,7 +137,7 @@ upcomingEvents.sort((a, b) => {
                       </div>
                    )}
                 </div>
-             </a>
+             </div>
            )
         })}
         {upcomingEvents.length === 0 && (
