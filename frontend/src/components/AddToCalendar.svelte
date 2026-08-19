@@ -11,7 +11,8 @@
     const end = new Date(mainRace.endDate).toISOString().replace(/-|:|\.\d\d\d/g, '');
     const title = `${type} ${event.name} - Main Race`;
     const location = `${event.circuit}, ${event.country}`;
-    const details = `Round ${event.round} of the ${new Date().getFullYear()} ${type} Championship.\n\nLive timing and schedule: ${window.location.href}`;
+    const url = typeof window !== 'undefined' ? window.location.href : 'https://motorsport-live-schedule.vercel.app';
+    const details = `Round ${event.round} of the ${new Date().getFullYear()} ${type} Championship.\n\nLive timing and schedule: ${url}`;
     
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
   }
