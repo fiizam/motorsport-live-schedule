@@ -2,12 +2,14 @@
 ---
 
 <div id="splash-screen" transition:persist class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-surface-50 transition-all duration-700 ease-in-out">
-  <div class="splash-logo-container transform transition-transform duration-1000">
-    <img src="/logo splash.png" alt="Motorsport Logo" class="w-64 md:w-80 h-auto object-contain drop-shadow-2xl" />
+  <div class="splash-logo-container transform transition-transform duration-1000 relative">
+    <!-- Optional soft radial glow behind the logo in dark mode for extra contrast -->
+    <div class="absolute inset-0 bg-white/0 dark:bg-white/5 rounded-full blur-3xl -z-10 scale-150 transition-colors duration-700"></div>
+    <img src="/logo splash.png" alt="Motorsport Logo" class="w-64 md:w-80 h-auto object-contain dark:drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] transition-all duration-700" />
   </div>
   
   <!-- Sleek modern loading line -->
-  <div class="mt-12 w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
+  <div class="mt-12 w-48 h-1 bg-surface-800 rounded-full overflow-hidden">
     <div class="h-full bg-f1-red splash-loading-bar rounded-full"></div>
   </div>
 </div>
@@ -31,8 +33,18 @@
   }
   
   @keyframes pulse-glow {
-    0% { filter: drop-shadow(0 4px 6px rgba(225, 6, 0, 0.1)); }
-    100% { filter: drop-shadow(0 15px 20px rgba(225, 6, 0, 0.3)); }
+    0% { filter: drop-shadow(0 4px 6px rgba(225, 6, 0, 0.15)); }
+    100% { filter: drop-shadow(0 15px 25px rgba(225, 6, 0, 0.35)); }
+  }
+
+  /* Add a specific dark mode pulse glow if the global .dark class is present on html */
+  :global(.dark) .splash-logo-container {
+    animation: float 3s ease-in-out infinite, pulse-glow-dark 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-glow-dark {
+    0% { filter: drop-shadow(0 4px 6px rgba(255, 255, 255, 0.05)) drop-shadow(0 0 10px rgba(225, 6, 0, 0.2)); }
+    100% { filter: drop-shadow(0 15px 25px rgba(255, 255, 255, 0.1)) drop-shadow(0 0 20px rgba(225, 6, 0, 0.4)); }
   }
 
   @keyframes load-bar {
