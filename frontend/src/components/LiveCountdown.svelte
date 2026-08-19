@@ -70,9 +70,9 @@
       
       <!-- Days -->
       <div class="flex flex-col items-center">
-        <div class="relative h-[1em] overflow-hidden w-[1.2em] flex justify-center">
+        <div class="relative h-[1em] overflow-hidden w-[1.2em]">
           {#key fDays}
-            <span class="absolute" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
+            <span class="absolute inset-0 flex items-center justify-center" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
               {fDays}
             </span>
           {/key}
@@ -84,9 +84,9 @@
       
       <!-- Hours -->
       <div class="flex flex-col items-center">
-        <div class="relative h-[1em] overflow-hidden w-[1.2em] flex justify-center">
+        <div class="relative h-[1em] overflow-hidden w-[1.2em]">
           {#key fHours}
-            <span class="absolute" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
+            <span class="absolute inset-0 flex items-center justify-center" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
               {fHours}
             </span>
           {/key}
@@ -98,9 +98,9 @@
       
       <!-- Minutes -->
       <div class="flex flex-col items-center">
-        <div class="relative h-[1em] overflow-hidden w-[1.2em] flex justify-center">
+        <div class="relative h-[1em] overflow-hidden w-[1.2em]">
           {#key fMins}
-            <span class="absolute" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
+            <span class="absolute inset-0 flex items-center justify-center" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
               {fMins}
             </span>
           {/key}
@@ -112,9 +112,9 @@
       
       <!-- Seconds -->
       <div class="flex flex-col items-center">
-        <div class={`relative h-[1em] overflow-hidden w-[1.2em] flex justify-center ${colorClass}`}>
+        <div class={`relative h-[1em] overflow-hidden w-[1.2em] ${colorClass}`}>
           {#key fSecs}
-            <span class="absolute" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
+            <span class="absolute inset-0 flex items-center justify-center" in:fly={{ y: '100%', duration: 400 }} out:fly={{ y: '-100%', duration: 400 }}>
               {fSecs}
             </span>
           {/key}
