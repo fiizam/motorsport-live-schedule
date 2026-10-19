@@ -14,6 +14,7 @@ A fast, real-time web app for tracking Formula 1 and MotoGP schedules. Built wit
 - **Node.js**: v18+ (v20 recommended)
 - **npm**: v9+
 *(Docker is not required)*
+<br>
 
 ## Quick Start
 
