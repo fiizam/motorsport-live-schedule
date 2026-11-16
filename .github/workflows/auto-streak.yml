@@ -1,0 +1,43 @@
+name: Auto GitHub Streak
+
+on:
+  schedule:
+    # 17:05 UTC = 00:05 WIB (berjalan otomatis setiap hari saat masuk tanggal baru WIB)
+    - cron: '5 17 * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Paksa tambah 2 kontribusi sekarang (abaikan cek target harian)?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  auto-streak:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git User
+        run: |
+          git config --global user.name "fiizam"
+          git config --global user.email "youngpiz890@gmail.com"
+
+      - name: Run Auto Streak Check
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_USERNAME: fiizam
+          TARGET_FILE: README.md
+          TARGET_BRANCH: main
+          TARGET_DAILY: "2"
+          FORCE_RUN: ${{ github.event.inputs.force || 'false' }}
+        run: python3 .github/scripts/auto_streak.py
