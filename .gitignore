@@ -15,3 +15,5 @@ test-frontend.js
 backend/test-*.js
 .vercel
 .vercel/
+__pycache__/
+*.pyc
