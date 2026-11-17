@@ -98,8 +98,11 @@ def get_today_contributions(username: str, token: str, offset_hours: int = 7) ->
     )
     return count, today_str
 
-def run_git(args: list[str], cwd: str = ".") -> str:
-    res = subprocess.run(["git"] + args, cwd=cwd, capture_output=True, text=True, encoding="utf-8")
+def run_git(args: list[str], cwd: str = ".", env_extra: dict = None) -> str:
+    env = os.environ.copy()
+    if env_extra:
+        env.update(env_extra)
+    res = subprocess.run(["git"] + args, cwd=cwd, capture_output=True, text=True, encoding="utf-8", env=env)
     if res.returncode != 0:
         err = res.stderr.strip() or res.stdout.strip()
         raise RuntimeError(f"git {' '.join(args)} gagal di {cwd}: {err}")
@@ -188,11 +191,21 @@ def main():
         # Modifikasi 1 karakter di akhir
         modified = original[:-1]
 
+        # Buat stempel waktu WIB (+0700) agar commit resmi tercatat di tanggal hari ini di Jakarta
+        tz_wib = timezone(timedelta(hours=7))
+        now_wib = datetime.now(tz_wib)
+        wib_git_date = now_wib.strftime("%Y-%m-%d %H:%M:%S +0700")
+        git_env = {
+            "TZ": "Asia/Jakarta",
+            "GIT_AUTHOR_DATE": wib_git_date,
+            "GIT_COMMITTER_DATE": wib_git_date
+        }
+
         # COMMIT 1
         with open(file_full_path, "w", encoding="utf-8") as f:
             f.write(modified)
         run_git(["add", target_file], cwd=work_dir)
-        run_git(["commit", "-m", msg_pair[0]], cwd=work_dir)
+        run_git(["commit", "-m", msg_pair[0]], cwd=work_dir, env_extra=git_env)
         print(f"[1/2] Mendorong commit 1 ke {target_repo_name}...")
         run_git(["push", "origin", target_branch], cwd=work_dir)
         print("[✓] Commit 1 terdorong (+1 kontribusi)")
@@ -200,10 +213,14 @@ def main():
         time.sleep(3)
 
         # COMMIT 2 (Kembalikan 100% utuh)
+        now_wib2 = datetime.now(tz_wib)
+        git_env["GIT_AUTHOR_DATE"] = now_wib2.strftime("%Y-%m-%d %H:%M:%S +0700")
+        git_env["GIT_COMMITTER_DATE"] = git_env["GIT_AUTHOR_DATE"]
+
         with open(file_full_path, "w", encoding="utf-8") as f:
             f.write(original)
         run_git(["add", target_file], cwd=work_dir)
-        run_git(["commit", "-m", msg_pair[1]], cwd=work_dir)
+        run_git(["commit", "-m", msg_pair[1]], cwd=work_dir, env_extra=git_env)
         print(f"[2/2] Mendorong commit 2 ke {target_repo_name}...")
         run_git(["push", "origin", target_branch], cwd=work_dir)
         print("[✓] Commit 2 terdorong (+1 kontribusi)")

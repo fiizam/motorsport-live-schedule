@@ -26,6 +26,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Set Timezone to Asia/Jakarta (WIB)
+        run: sudo timedatectl set-timezone Asia/Jakarta
+
       - name: Checkout Base Repository
         uses: actions/checkout@v4
         with:
@@ -39,6 +42,7 @@ jobs:
 
       - name: Run Auto Streak
         env:
+          TZ: "Asia/Jakarta"
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
           GITHUB_USERNAME: fiizam
           TARGET_DAILY: "2"
