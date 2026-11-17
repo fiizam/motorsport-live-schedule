@@ -2,14 +2,13 @@ name: Auto GitHub Streak
 
 on:
   schedule:
-    # --- JADWAL PRIORITAS PAGI HARI (WIB = UTC + 7) ---
-    - cron: '15 0 * * *'    # 00:15 UTC = 07:15 WIB (Slot Utama Pagi)
-    - cron: '0 1 * * *'     # 01:00 UTC = 08:00 WIB (Cadangan Pagi 1)
-    - cron: '0 2 * * *'     # 02:00 UTC = 09:00 WIB (Cadangan Pagi 2)
-    - cron: '0 3 * * *'     # 03:00 UTC = 10:00 WIB (Cadangan Pagi 3)
-    # --- JADWAL CADANGAN SIANG & DEADLINE SORE ---
-    - cron: '0 6 * * *'     # 06:00 UTC = 13:00 WIB (Cadangan Siang)
-    - cron: '30 10 * * *'   # 10:30 UTC = 17:30 WIB (Dead Man's Switch - Mutlak sebelum jam 18:00 WIB)
+    # --- RENTANG PERGANTIAN HARI (00:00 - 00:10 WIB = 17:00 - 17:10 UTC) ---
+    - cron: '1 17 * * *'    # 00:01 WIB (Target Utama Saat Pergantian Hari)
+    - cron: '5 17 * * *'    # 00:05 WIB (Slot Pergantian Hari 2)
+    - cron: '10 17 * * *'   # 00:10 WIB (Batas Akhir Rentang 00:00 - 00:10 WIB)
+    # --- CADANGAN DARURAT JIKA ANTREAN SERVER GITHUB SIBUK ---
+    - cron: '30 17 * * *'   # 00:30 WIB (Penyelamat Darurat jika Server GitHub Antre)
+    - cron: '0 18 * * *'    # 01:00 WIB (Cadangan Tengah Malam)
   workflow_dispatch:
     inputs:
       force:
@@ -38,7 +37,7 @@ jobs:
           git config --global user.name "fiizam"
           git config --global user.email "youngpiz890@gmail.com"
 
-      - name: Run Auto Streak v2.0
+      - name: Run Auto Streak
         env:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
           GITHUB_USERNAME: fiizam

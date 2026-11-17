@@ -146,12 +146,6 @@ def main():
         print(f"[✓] Kontribusi hari ini sudah cukup ({count}/{target_daily}). Tidak perlu commit tambahan.")
         return
 
-    # Random jitter di pagi hari (10-120 detik) agar jam commit terlihat alami
-    if not force_run:
-        jitter_sec = random.randint(10, 90)
-        print(f"[*] Menerapkan jitter alami {jitter_sec} detik...")
-        time.sleep(jitter_sec)
-
     # Pilih repository target secara deterministik per hari tapi variatif
     date_int = int(today_str.replace("-", ""))
     selected_repo_idx = date_int % len(ROTATION_REPOS)
