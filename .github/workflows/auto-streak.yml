@@ -2,8 +2,14 @@ name: Auto GitHub Streak
 
 on:
   schedule:
-    # 17:05 UTC = 00:05 WIB (berjalan otomatis setiap hari saat masuk tanggal baru WIB)
+    # 17:05 UTC = 00:05 WIB (slot utama)
     - cron: '5 17 * * *'
+    # 17:35 UTC = 00:35 WIB (cadangan jika GitHub Actions queue sedang padat)
+    - cron: '35 17 * * *'
+    # 18:05 UTC = 01:05 WIB (cadangan tengah malam)
+    - cron: '5 18 * * *'
+    # 23:05 UTC = 06:05 WIB (cadangan pagi hari)
+    - cron: '5 23 * * *'
   workflow_dispatch:
     inputs:
       force:
