@@ -20,4 +20,4 @@ A fast, real-time web app for tracking Formula 1 and MotoGP schedules. Built wit
 
 1. **Install dependencies:**
    ```bash
-   npm install
+   npm instal
