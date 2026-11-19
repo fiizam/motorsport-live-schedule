@@ -22,3 +22,5 @@ A fast, real-time web app for tracking Formula 1 and MotoGP schedules. Built wit
    ```bash
    npm instal
 <!-- notification-test -->
+
+<!-- notification-emoji-fix -->
