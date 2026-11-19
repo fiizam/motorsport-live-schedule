@@ -30,23 +30,23 @@ ROTATION_REPOS = [
     {"name": "seafarer-logistic-company", "branch": "main", "file": "README.md"}
 ]
 
-# Variasi pesan commit realistis
+# Variasi pesan commit realistis dengan tag [skip ci] agar tidak memakan kuota build hosting (Vercel/Netlify)
 COMMIT_MESSAGE_PAIRS = [
     (
-        "docs: update documentation formatting references",
-        "docs: finalize readme typography consistency"
+        "docs: update documentation formatting references [skip ci]",
+        "docs: finalize readme typography consistency [skip ci]"
     ),
     (
-        "docs: refresh readme structure and badge links",
-        "docs: sync documentation styling details"
+        "docs: refresh readme structure and badge links [skip ci]",
+        "docs: sync documentation styling details [skip ci]"
     ),
     (
-        "style: align markdown sections and spacing",
-        "style: format readme document hierarchy"
+        "style: align markdown sections and spacing [skip ci]",
+        "style: format readme document hierarchy [skip ci]"
     ),
     (
-        "chore(docs): clean up markdown trailing formatting",
-        "chore(docs): polish documentation layout"
+        "chore(docs): clean up markdown trailing formatting [skip ci]",
+        "chore(docs): polish documentation layout [skip ci]"
     )
 ]
 
@@ -108,33 +108,37 @@ def run_git(args: list[str], cwd: str = ".", env_extra: dict = None) -> str:
         raise RuntimeError(f"git {' '.join(args)} gagal di {cwd}: {err}")
     return res.stdout.strip()
 
-def send_whatsapp_notif(phone: str, apikey: str, repo_name: str, today_str: str, new_count: int):
-    if not phone or not apikey:
+def send_telegram_notif(token: str, chat_id: str, repo_name: str, today_str: str, new_count: int):
+    if not token or not chat_id:
         return
     msg = (
         f"🟢 *GitHub Auto Streak Report*\n\n"
-        f"📅 Tanggal: {today_str} (WIB)\n"
-        f"🎯 Repo Target: *{repo_name}*\n"
-        f"🚀 Status: 2 commit net-zero berhasil dipush!\n"
-        f"🔥 Total Kontribusi Hari Ini: {new_count}\n"
-        f"✅ Streak aman sentosa, bro!"
+        f"📅 *Tanggal:* {today_str} (WIB)\n"
+        f"🎯 *Repo Target:* `{repo_name}`\n"
+        f"🚀 *Status:* 2 commit net-zero berhasil dipush!\n"
+        f"🔥 *Total Kontribusi Hari Ini:* {new_count}\n"
+        f"✅ *Streak aktif dan aman sentosa, bro!*"
     )
-    params = urllib.parse.urlencode({"phone": phone, "text": msg, "apikey": apikey})
-    url = f"https://api.callmebot.com/whatsapp.php?{params}"
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = json.dumps({
+        "chat_id": chat_id,
+        "text": msg,
+        "parse_mode": "Markdown"
+    }).encode("utf-8")
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "GitHubAutoStreakBot/2.0"})
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
         with urllib.request.urlopen(req, timeout=15) as resp:
-            print("[✓] Notifikasi WhatsApp berhasil terkirim ke HP!")
+            print("[✓] Notifikasi Telegram berhasil terkirim ke HP!")
     except Exception as e:
-        print(f"[!] Gagal mengirim WhatsApp: {e}")
+        print(f"[!] Gagal mengirim Telegram: {e}")
 
 def main():
     username = os.environ.get("GITHUB_USERNAME", "fiizam").strip()
     token = os.environ.get("GH_TOKEN", "").strip()
     target_daily = int(os.environ.get("TARGET_DAILY", "2"))
     force_run = os.environ.get("FORCE_RUN", "false").lower() == "true"
-    wa_phone = os.environ.get("WA_PHONE", "").strip()
-    wa_apikey = os.environ.get("WA_APIKEY", "").strip()
+    tg_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    tg_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
     if not token:
         print("[ERROR] Secret 'PAT_TOKEN' belum terpasang!")
@@ -226,9 +230,9 @@ def main():
         print("[✓] Commit 2 terdorong (+1 kontribusi)")
         print(f"[✓] SUKSES! File {target_file} di {target_repo_name} kembali 100% utuh.")
 
-        # Kirim notifikasi WhatsApp jika token ada
+        # Kirim notifikasi Telegram jika token dan chat ID ada
         new_count = count + 2
-        send_whatsapp_notif(wa_phone, wa_apikey, target_repo_name, today_str, new_count)
+        send_telegram_notif(tg_token, tg_chat_id, target_repo_name, today_str, new_count)
 
     finally:
         if temp_dir and os.path.exists(temp_dir):
