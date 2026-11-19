@@ -112,12 +112,11 @@ def send_telegram_notif(token: str, chat_id: str, repo_name: str, today_str: str
     if not token or not chat_id:
         return
     msg = (
-        f"🟢 *GitHub Auto Streak Report*\n\n"
-        f"📅 *Tanggal:* {today_str} (WIB)\n"
-        f"🎯 *Repo Target:* `{repo_name}`\n"
-        f"🚀 *Status:* 2 commit net-zero berhasil dipush!\n"
-        f"🔥 *Total Kontribusi Hari Ini:* {new_count}\n"
-        f"✅ *Streak aktif dan aman sentosa, bro!*"
+        f"🟢 *Streak hari ini aman, bro!*\n\n"
+        f"📁 *Repo:* `{repo_name}`\n"
+        f"🔥 *Kontribusi Hari Ini:* {new_count} kontribusi\n"
+        f"📅 *Tanggal:* {today_str} (WIB)\n\n"
+        f"✅ *2 commit net-zero udah beres dipush ke GitHub!*"
     )
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = json.dumps({
