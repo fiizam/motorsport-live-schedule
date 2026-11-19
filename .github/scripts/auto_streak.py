@@ -114,7 +114,7 @@ def send_telegram_notif(token: str, chat_id: str, repo_name: str, today_str: str
     msg = (
         f"🟢 *Streak hari ini aman, bro!*\n\n"
         f"📁 *Repo:* `{repo_name}`\n"
-        f"🔥 *Kontribusi Hari Ini:* {new_count} kontribusi\n"
+        f"🟢 *Total Kontribusi Hari Ini:* {new_count} kontribusi\n"
         f"📅 *Tanggal:* {today_str} (WIB)\n\n"
         f"✅ *2 commit net-zero udah beres dipush ke GitHub!*"
     )
