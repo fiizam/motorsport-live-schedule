@@ -133,29 +133,29 @@ def main():
     quote = random.choice(QUOTES)
 
     if count > 0:
-        streak_status = f"✅ *Kotak Hijau Nyala!* ({count} kontribusi)"
+        streak_status = f"Kotak hijau aktif ({count} kontribusi)"
     else:
-        streak_status = "⏳ *Belum Ada Commit* (Tenang, auto-streak standby nanti malam)"
+        streak_status = "Belum ada commit (auto-streak standby tengah malam nanti)"
 
     race_section = ""
     if race:
         race_section = (
-            f"🏎️ *Highlight F1 Pekan Ini:*\n"
+            f"*Highlight F1 Pekan Ini:*\n"
             f"• Seri: *{race['name']}* (Round {race['round']})\n"
             f"• Sirkuit: {race['circuit']}, {race['country']}\n"
-            f"• 🏁 Balapan: *{race['race_wib']}*\n"
-            f"• ⏳ Waktu: *{race['countdown']}*\n\n"
+            f"• Balapan: *{race['race_wib']}*\n"
+            f"• Waktu: *{race['countdown']}*\n\n"
         )
 
     msg = (
-        f"☀️ *Selamat Pagi Bro Zamzari! (08:00 WIB)*\n\n"
-        f"📊 *Laporan GitHub Hari Ini:*\n"
+        f"*Morning Briefing (08:00 WIB)*\n\n"
+        f"*Status GitHub Hari Ini:*\n"
         f"• Status: {streak_status}\n"
         f"• Waktu Cek: `{date_str}`\n\n"
         f"{race_section}"
-        f"💡 *Quote Pagi:*\n"
+        f"*Quote Pagi:*\n"
         f"_{quote}_\n\n"
-        f"Cloud standby 24/7 bro, laptop mati pun semua sistem tetap jalan normal! 🚀"
+        f"Cloud standby 24/7 bro, laptop mati pun semua sistem tetap jalan normal."
     )
 
     send_telegram(msg)
