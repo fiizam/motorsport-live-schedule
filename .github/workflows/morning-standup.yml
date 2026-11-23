@@ -1,0 +1,31 @@
+name: Morning Standup Briefing
+
+on:
+  schedule:
+    # 01:00 UTC = 08:00 WIB Setiap Pagi
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  morning-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Timezone to Asia/Jakarta (WIB)
+        run: sudo timedatectl set-timezone Asia/Jakarta
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Morning Standup
+        env:
+          TZ: "Asia/Jakarta"
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GITHUB_USERNAME: fiizam
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 .github/scripts/morning_standup.py
